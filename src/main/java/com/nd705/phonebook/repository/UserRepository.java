@@ -7,9 +7,14 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Репозиторий контактов
+ */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    List<User> findAllByDateOfBirth(LocalDate dateOfBirth);
+        List<User> findAllByDateOfBirth(LocalDate dateOfBirth);
+
     List<User> findByOrderByDateOfBirth();
+
     List<User> findByFirstNameAndLastNameAndPatronymic(String firstName, String lastName, String patronymic);
 }

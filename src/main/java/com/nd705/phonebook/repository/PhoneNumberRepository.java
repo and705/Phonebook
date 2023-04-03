@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Репозиторий номеров телефонов
+ */
 @Repository
 public interface PhoneNumberRepository extends JpaRepository<PhoneNumber, Long> {
 }

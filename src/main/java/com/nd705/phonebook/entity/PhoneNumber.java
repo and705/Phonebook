@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Таблица номеров телефенов
+ */
 @Entity
 @Data
 @AllArgsConstructor
@@ -16,7 +19,7 @@ public class PhoneNumber {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    private String phoneNumber;
+        private String phoneNumber;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private User user;

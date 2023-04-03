@@ -15,4 +15,102 @@
 * На задачу рекомендуется потратить не более 4 часов.  
 
 ### Результаты
-Написанный код можно выложить на Github/Gitlab или передать другим способом. Дополнительно нужно описать основные объекты и построить диаграмму классов.  
+### Диаграмма классов
+![img_1.png](img_1.png)
+### Приложена postman коллекция со всеми доступными операциями для user и admin
+PhoneBook.postman_collection.json
+
+### Сервер
+http://localhost:8084
+
+### БД H2
+http://localhost:8084/h2-console  
+пользователь: sa  
+пароль: -
+## Реализованные запросы
+#### POST http://localhost:8084/contacts/user добавление контакта
+```
+{  
+"firstName":"Дмитриев",  
+"lastName":"Дмитрий",  
+"patronymic":"Дмитриевич",  
+"jobTitle":"менеджер",  
+"dateOfBirth":"1991-02-06",  
+"phoneNumber":["+79211234567","+79217654321"]  
+}   
+```
+ответ:
+```
+{  
+"id": 4,  
+"firstName": "Дмитриев",  
+"lastName": "Дмитрий",  
+"patronymic": "Дмитриевич",  
+"jobTitle": "менеджер",  
+"dateOfBirth": "1991-02-06",  
+"phoneNumber": [  
+"+79211234567",  
+"+79217654321"  
+]  
+}  
+```
+#### PUT http://localhost:8084/contacts/user редактирование контакта
+```
+{  
+"id": 4,  
+"firstName": "Михайлов",  
+"lastName": "Дмитрий",  
+"patronymic": "Дмитриевич",  
+"jobTitle": "менеджер",  
+"dateOfBirth": "2000-02-06",  
+"phoneNumber": [  
+"+79211234567",  
+"+79217654321"  
+]  
+}  
+```
+ответ  
+```
+{  
+"id": 4,  
+"firstName": "Михайлов",  
+"lastName": "Дмитрий",  
+"patronymic": "Дмитриевич",  
+"jobTitle": "менеджер",  
+"dateOfBirth": "2000-02-06",  
+"phoneNumber": [  
+"+79211234567",  
+"+79217654321"  
+]  
+}  
+```
+#### GET http://localhost:8084/contacts/getAll запрос всех контактов
+```
+[  
+{  
+"id": 1,  
+"firstName": "Иванов",  
+"lastName": "Иван",  
+"patronymic": "Иванович",  
+"jobTitle": "менеджер",  
+"dateOfBirth": "1990-01-01",  
+"phoneNumbers": [  
+{  
+"id": 1,  
+"phoneNumber": "89211111111"  
+},  
+{  
+"id": 2,  
+"phoneNumber": "89211111112"  
+}  
+],  
+"createdDate": null,  
+"updatedDate": null  
+},  
+...
+```
+#### GET http://localhost:8084/contacts/user/1 запрос контакта по ID
+#### GET http://localhost:8084/contacts/getAllByBirth/1990-01-01 запрос контактов по дате рождения
+#### GET http://localhost:8084/contacts/getAllSortedByDateOfBirth запрос всех контактов с сортирвкой по дате рождения
+#### GET http://localhost:8084/contacts/getAllFilteredByName?firstName=Иван&lastName=Иванов&patronymic=Иванович запрос контаков по ФИО
+#### GET http://localhost:8084/contacts/getAllSortedByName запрос всех контактов с сортирвкой по ФИО

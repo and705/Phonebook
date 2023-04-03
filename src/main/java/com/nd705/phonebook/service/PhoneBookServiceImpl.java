@@ -14,13 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Реализация интерфейса телефонного справочника
+ */
 @Service
 public class PhoneBookServiceImpl implements PhoneBookService {
-@Autowired
-    UserRepository userRepository;
     @Autowired
-    PhoneNumberRepository phoneNumberRepository;
+    UserRepository userRepository;
 
+    /**
+     * Сохранение нового пользователя
+     */
     @Override
     public UserDTO saveNewUser(UserDTO newUserDTO) {
         User user = new User(
@@ -38,6 +42,9 @@ public class PhoneBookServiceImpl implements PhoneBookService {
         return newUserDTO;
     }
 
+    /**
+     * Сохранение пользователя/обновление данных
+     */
     @Override
     public UserDTO saveUser(UserDTO userDTO) {
         User user = new User(
@@ -55,14 +62,17 @@ public class PhoneBookServiceImpl implements PhoneBookService {
         return userDTO;
     }
 
+    /**
+     * Получение всех контаков в формате объекта UserDTO
+     */
     @Override
     public List<UserDTO> getAllUsersDTO() {
         List<User> user = userRepository.findAll();
         List<UserDTO> userDTO = new ArrayList<>();
-        for (User k:user
-             ) {
+        for (User k : user
+        ) {
             List<String> phoneNumber = new ArrayList<>();
-            for (PhoneNumber pn: k.getPhoneNumbers()
+            for (PhoneNumber pn : k.getPhoneNumbers()
             ) {
                 phoneNumber.add(pn.getPhoneNumber());
             }
@@ -79,36 +89,54 @@ public class PhoneBookServiceImpl implements PhoneBookService {
         return userDTO;
     }
 
+    /**
+     * Получение всех контаков
+     */
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
+    /**
+     * Получение всех контаков по указанной дате рождения
+     */
     @Override
     public List<User> findByFirstNameAndLastNameAndPatronymic(String firstName, String lastName, String patronymic) {
         return userRepository.findByFirstNameAndLastNameAndPatronymic(firstName, lastName, patronymic);
     }
 
+    /**
+     * Получение всех контаков по указанной дате рождения
+     */
     @Override
     public List<User> getAllByDateOfBirth(LocalDate date) {
         return userRepository.findAllByDateOfBirth(date);
     }
 
+    /**
+     * Получение всех контаков отсортированных по ФИО
+     */
     @Override
     public List<User> getAllSortedByName() {
         return userRepository.findAll(Sort.by("firstName").and(Sort.by("lastName")).and(Sort.by("patronymic")));
     }
 
+    /**
+     * Получение всех контаков отсортированных по дате рождения
+     */
     @Override
     public List<User> getAllSortedByDateOfBirth() {
         return userRepository.findByOrderByDateOfBirth();
     }
 
+    /**
+     * Получение контака по id
+     */
     @Override
     public User getUser(long id) {
         User user = null;
         Optional<User> usr = userRepository.findById(id);
-        if(usr.isPresent()){
+        if (usr.isPresent()) {
             user = usr.get();
         }
         return user;
